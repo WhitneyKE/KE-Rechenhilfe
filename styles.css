@@ -1,0 +1,751 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Arial', 'Montserrat', sans-serif;
+    background: #0d0d0d;
+    color: #333;
+    overflow: hidden;
+}
+
+body {
+    padding: 0;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #0d0d0d;
+}
+
+/* HEADER */
+.header {
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+    color: white;
+    padding: 10px 12px;
+    border-bottom: 5px solid #c41f38;
+    flex-shrink: 0;
+}
+
+.header h1 {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+.header p {
+    font-size: 0.65rem;
+    color: #c41f38;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* TOP BUTTONS */
+.top-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px;
+    background: #1a1a1a;
+    flex-shrink: 0;
+}
+
+.btn-bon, .btn-wechsel {
+    padding: 12px;
+    border: 2px solid #c41f38;
+    background: #333;
+    color: white;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.1s;
+    letter-spacing: 1px;
+}
+
+.btn-bon:active, .btn-wechsel:active {
+    background: #c41f38;
+    transform: scale(0.98);
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    background: #1a1a1a;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.section-header h2 {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-settings {
+    background: #c41f38;
+    color: white;
+    border: none;
+    padding: 6px 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: 0.1s;
+}
+
+.btn-settings:active {
+    background: #a01729;
+    transform: scale(0.95);
+}
+
+.category {
+    margin-bottom: 12px;
+}
+
+.category h3 {
+    font-size: 0.8rem;
+    color: #c41f38;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.product-btn {
+    background: #2a2a2a;
+    color: white;
+    border: 2px solid #444;
+    padding: 12px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-align: center;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    transition: 0.1s;
+}
+
+.product-btn:active {
+    background: #c41f38;
+    border-color: #c41f38;
+    transform: scale(0.95);
+}
+
+.product-btn.pfand {
+    background: #c41f38;
+    border-color: #c41f38;
+}
+
+.product-name {
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: 0.65rem;
+    opacity: 0.8;
+}
+
+/* ============================================
+   POPUP BON
+   ============================================ */
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: white;
+    border: 3px solid #333;
+    border-radius: 6px;
+    width: 95%;
+    max-width: 400px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 2px dashed #333;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.popup-header h2 {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: #333;
+    font-family: Arial, sans-serif;
+    flex: 1;
+    margin: 0;
+}
+
+.receipt-time {
+    font-size: 0.75rem;
+    color: #666;
+    position: absolute;
+    left: 15px;
+    top: 0;
+}
+
+.popup-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.receipt-items {
+    margin-bottom: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.receipt-empty {
+    text-align: center;
+    color: #999;
+    font-size: 0.75rem;
+    margin: 15px 0;
+}
+
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 0.8rem;
+    border-bottom: 1px dotted #999;
+}
+
+.receipt-item-left {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    gap: 6px;
+}
+
+.receipt-item-name {
+    flex: 1;
+    font-weight: bold;
+}
+
+.receipt-item-qty {
+    color: #666;
+    min-width: 22px;
+    font-weight: bold;
+}
+
+.receipt-item-price {
+    font-weight: bold;
+    min-width: 45px;
+    text-align: right;
+}
+
+.receipt-item-delete {
+    background: none;
+    border: none;
+    color: #c41f38;
+    cursor: pointer;
+    padding: 0 3px;
+    font-size: 0.9rem;
+    transition: 0.1s;
+    margin-left: 3px;
+}
+
+.receipt-item-delete:active {
+    color: #e74c3c;
+}
+
+.receipt-divider {
+    height: 2px;
+    background: dashed #333;
+    margin: 10px 0;
+}
+
+.receipt-summary {
+    margin-bottom: 10px;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+.amount {
+    min-width: 70px;
+    text-align: right;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.btn {
+    padding: 12px;
+    border: 2px solid #333;
+    font-family: Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.1s;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+
+.btn-primary {
+    background: #c41f38;
+    color: white;
+    border-color: #c41f38;
+}
+
+.btn-primary:active {
+    background: #a01729;
+    transform: scale(0.98);
+}
+
+.btn-danger {
+    background: white;
+    color: #333;
+    border-color: #333;
+}
+
+.btn-danger:active {
+    background: #333;
+    color: white;
+    transform: scale(0.98);
+}
+
+/* ============================================
+   POPUP WECHSELGELD
+   ============================================ */
+
+.popup-wechsel {
+    background: #1a1a1a;
+    border: 3px solid #c41f38;
+    border-radius: 6px;
+    width: 95%;
+    max-width: 380px;
+    padding: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.popup-header-wechsel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #c41f38;
+    padding-bottom: 10px;
+}
+
+.popup-header-wechsel h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.wechsel-summary {
+    background: #2a2a2a;
+    border: 2px solid #c41f38;
+    border-radius: 4px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+}
+
+.summary-item span:first-child {
+    letter-spacing: 1px;
+}
+
+.summary-value {
+    color: #c41f38;
+    font-size: 1.1rem;
+    min-width: 80px;
+    text-align: right;
+}
+
+.summary-item.highlight {
+    background: #c41f38;
+    padding: 8px;
+    border-radius: 3px;
+    color: white;
+}
+
+.summary-item.highlight .summary-value {
+    color: white;
+}
+
+.wechsel-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wechsel-input-section label {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.wechsel-input-display {
+    background: #333;
+    border: 2px solid #c41f38;
+    color: #c41f38;
+    padding: 12px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: right;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.number-pad button {
+    background: #333;
+    color: white;
+    border: 2px solid #555;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.1s;
+    min-height: 48px;
+}
+
+.number-pad button:active {
+    background: #c41f38;
+    border-color: #c41f38;
+    transform: scale(0.95);
+}
+
+.btn-dot {
+    background: #c41f38;
+    border-color: #c41f38;
+    font-size: 0.85rem;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    border-color: #e74c3c;
+    font-size: 1.2rem;
+}
+
+.popup-footer-wechsel {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-confirm {
+    flex: 1;
+    background: #c41f38;
+    color: white;
+    border: 2px solid #c41f38;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.1s;
+    letter-spacing: 1px;
+}
+
+.btn-confirm:active {
+    background: #a01729;
+    transform: scale(0.98);
+}
+
+/* ============================================
+   SETTINGS MODAL
+   ============================================ */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-box {
+    background: #1a1a1a;
+    border: 3px solid #c41f38;
+    border-radius: 4px;
+    width: 95%;
+    max-width: 100vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    background: #c41f38;
+    color: white;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.modal-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 8px;
+    background: #2a2a2a;
+    flex-shrink: 0;
+}
+
+.tab-btn {
+    padding: 8px;
+    background: #333;
+    border: 2px solid #555;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: 0.1s;
+}
+
+.tab-btn.active {
+    background: #c41f38;
+    color: white;
+    border-color: #c41f38;
+}
+
+.tab-content {
+    display: none;
+    padding: 10px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+#products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-item {
+    background: #2a2a2a;
+    padding: 8px;
+    border-left: 3px solid #c41f38;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+}
+
+.product-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.product-item-name {
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: white;
+}
+
+.product-item-cat {
+    font-size: 0.7rem;
+    color: #999;
+}
+
+.product-item-price {
+    font-weight: bold;
+    color: #c41f38;
+    min-width: 50px;
+    text-align: right;
+}
+
+.btn-edit, .btn-delete {
+    padding: 5px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: bold;
+    transition: 0.1s;
+}
+
+.btn-edit {
+    background: #c41f38;
+    color: white;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: 2px solid #c41f38;
+    border-radius: 3px;
+    font-size: 0.95rem;
+    background: #2a2a2a;
+    color: white;
+}
+
+.btn-add {
+    width: 100%;
+    padding: 10px;
+    background: #c41f38;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.btn-add:active {
+    opacity: 0.8;
+}
+
+.btn-close-modal {
+    padding: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/* SCROLLBAR */
+.main::-webkit-scrollbar,
+.popup-content::-webkit-scrollbar,
+.modal-box::-webkit-scrollbar,
+.receipt-items::-webkit-scrollbar {
+    width: 5px;
+}
+
+.main::-webkit-scrollbar-thumb,
+.popup-content::-webkit-scrollbar-thumb,
+.modal-box::-webkit-scrollbar-thumb,
+.receipt-items::-webkit-scrollbar-thumb {
+    background: #c41f38;
+    border-radius: 3px;
+}
+
+/* PRINT */
+@media print {
+    .btn-settings, .top-buttons {
+        display: none;
+    }
+}
